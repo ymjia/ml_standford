@@ -26,16 +26,14 @@ sigma = zeros(1, size(X, 2));
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
-mu = mean(X)
-sigma = std(X)
-m = length(mu)
+mu = mean(X);
+sigma = std(X);
 ## for i = 1:m
 ##   X_norm(:, i) = X_norm(:, i) .- mu(i)
 ##   X_norm(:, i) = X_norm(:, i) ./ sigma(i)
 ## %
 ## end
-X_norm = (X_norm .- repmat(mu, [size(X, 1), 1])) ./ repmat(sigma, [size(X, 1), 1])
-
+X_norm = (X_norm .- repmat(mu, [size(X, 1), 1])) ./ repmat(sigma, [size(X, 1), 1]);
 
 % ============================================================
 
