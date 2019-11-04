@@ -47,8 +47,6 @@ hold off;
 
 fprintf('\nProgram kbhitd. Press enter to continue.\n');
 kbhit;
-
-
 %% ============ Part 2: Compute Cost and Gradient ============
 %  In this part of the exercise, you will implement the cost and gradient
 %  for logistic regression. You neeed to complete the code in 
@@ -120,7 +118,6 @@ legend('Admitted', 'Not admitted')
 hold off;
 
 fprintf('\nProgram kbhitd. Press enter to continue.\n');
-kbhit;
 
 %% ============== Part 4: Predict and Accuracies ==============
 %  After learning the parameters, you'll like to use it to predict the outcomes
