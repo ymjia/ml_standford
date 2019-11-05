@@ -89,7 +89,6 @@ fprintf('Expected gradients (approx) - first five values only:\n');
 fprintf(' 0.3460\n 0.1614\n 0.1948\n 0.2269\n 0.0922\n');
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-kbhit;
 
 %% ============= Part 2: Regularization and Accuracies =============
 %  Optional Exercise:
@@ -115,8 +114,26 @@ options = optimset('GradObj', 'on', 'MaxIter', 400);
 [theta, J, exit_flag] = ...
 	fminunc(@(t)(costFunctionReg(t, X, y, lambda)), initial_theta, options);
 
+
+[theta1, J1, exit_flag1] = ...
+	fminunc(@(t)(costFunctionReg(t, X, y, 0.1)), initial_theta, options);
+
+[theta2, J2, exit_flag2] = ...
+	fminunc(@(t)(costFunctionReg(t, X, y, 30)), initial_theta, options);
+
+[theta3, J3, exit_flag3] = ...
+	fminunc(@(t)(costFunctionReg(t, X, y, 0)), initial_theta, options);
+
 % Plot Boundary
+#subplot(2, 2, 1)
 plotDecisionBoundary(theta, X, y);
+#subplot(2, 2, 2)
+plotDecisionBoundary(theta1, X, y);
+#subplot(2, 2, 3)
+plotDecisionBoundary(theta2, X, y);
+#subplot(2, 2, 4)
+plotDecisionBoundary(theta3, X, y);
+
 hold on;
 title(sprintf('lambda = %g', lambda))
 
