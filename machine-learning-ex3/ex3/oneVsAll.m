@@ -23,10 +23,8 @@ X = [ones(m, 1) X];
 %               parameter lambda. 
 %
 % Hint: theta(:) will return a column vector.
-%
 % Hint: You can use y == c to obtain a vector of 1's and 0's that tell you
 %       whether the ground truth is true/false for this class.
-%
 % Note: For this assignment, we recommend using fmincg to optimize the cost
 %       function. It is okay to use a for-loop (for c = 1:num_labels) to
 %       loop over the different classes.
@@ -35,22 +33,22 @@ X = [ones(m, 1) X];
 %       are dealing with large number of parameters.
 %
 % Example Code for fmincg:
-%
 %     % Set Initial theta
 %     initial_theta = zeros(n + 1, 1);
-%     
 %     % Set options for fminunc
 %     options = optimset('GradObj', 'on', 'MaxIter', 50);
-% 
 %     % Run fmincg to obtain the optimal theta
 %     % This function will return theta and the cost 
 %     [theta] = ...
 %         fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), ...
 %                 initial_theta, options);
 %
-
-
-
+c = 0:1:(num_labels - 1)
+options = optimset('GradObj', 'on', 'MaxIter', 50);
+for i = 1:m
+  init_theta = zeros(n + 1, 1);
+  all_theta(i, :) = fmincg(@(t)(lrCostFunction(init_theta, X, (y == c), lambda)), init_theta, options)
+end;
 
 
 
