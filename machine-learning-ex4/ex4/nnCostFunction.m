@@ -41,14 +41,30 @@ Theta2_grad = zeros(size(Theta2));
 %
 X = [ones(m, 1), X];
 h_theta = sigmoid([ones(m, 1), sigmoid(X * Theta1')] * Theta2');
+total_cost = 0;
+for i = 1:m
+  yi = zeros(num_labels, 1);
+  yi(y(i)) = 1;
+  hi = h_theta(i, :);
+  cost = log(hi) * yi + log(1 - hi) * (1 - yi);
+  total_cost = total_cost + cost;
+  if (cost > 1)
+	disp(cost)
+  endif
+  if (mod(i, 50) == 0)
+	disp(yi)
+	disp(hi)
+	kbhit;
+  endif
+end
+total_cost
 Y1 = zeros(m, num_labels);
 Y0 = zeros(m, num_labels);
 for i = 1:m
-  Y1(m, y(m)) = 1;
-  #Y0(m, y(m)) = 1;
+  Y1(i, y(i)) = 1;
 end
 
-J = -1 * sum(log(h_theta) * Y1' + log(1 - h_theta) * (1 - Y1)') / m; % *Y complete sigma(i:K) sum
+J = -1 * sum(sum(log(h_theta) * Y1' + log(1 - h_theta) * (1 - Y1)')) / m % *Y complete sigma(i:K) sum
 
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
