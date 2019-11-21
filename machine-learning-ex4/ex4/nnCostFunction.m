@@ -41,31 +41,34 @@ Theta2_grad = zeros(size(Theta2));
 %
 X = [ones(m, 1), X];
 h_theta = sigmoid([ones(m, 1), sigmoid(X * Theta1')] * Theta2');
-total_cost = 0;
+## total_cost = 0;
+## for i = 1:m
+##   yi = zeros(num_labels, 1);
+##   yi(y(i)) = 1;
+##   hi = h_theta(i, :);
+##   cost = log(hi) * yi + log(1 - hi) * (1 - yi);
+##   total_cost = total_cost + cost;
+##   if (cost > 1)
+## 	disp(cost)
+##   endif
+##   if (mod(i, 50) == 0)
+## 	disp(yi)
+## 	disp(hi)
+## 	kbhit;
+##   endif
+## end
+## total_cost
+Y = zeros(m, num_labels);
 for i = 1:m
-  yi = zeros(num_labels, 1);
-  yi(y(i)) = 1;
-  hi = h_theta(i, :);
-  cost = log(hi) * yi + log(1 - hi) * (1 - yi);
-  total_cost = total_cost + cost;
-  if (cost > 1)
-	disp(cost)
-  endif
-  if (mod(i, 50) == 0)
-	disp(yi)
-	disp(hi)
-	kbhit;
-  endif
-end
-total_cost
-Y1 = zeros(m, num_labels);
-Y0 = zeros(m, num_labels);
-for i = 1:m
-  Y1(i, y(i)) = 1;
+  Y(i, y(i)) = 1;
 end
 
-J = -1 * sum(sum(log(h_theta) * Y1' + log(1 - h_theta) * (1 - Y1)')) / m % *Y complete sigma(i:K) sum
+## KENG: 1st row in h_theta * 1st col in Y, NO NEED to multiply 2nd row in h_theta with 1st col in Y
+##       so is not a matrix multiply operation. only diagonal elements in h_theta * Y is needed
 
+J = -1 * sum(sum(log(h_theta) .* Y + log(1 - h_theta) .* (1 - Y))) / m; % *Y complete sigma(i:K) sum
+regular_item = lambda * (sum(sum(Theta1(:, 2:size(Theta1, 2)).^2)) + sum(sum(Theta2(:, 2:size(Theta2, 2)).^ 2))) / (2 * m);
+J = J + regular_item;
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 %         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
@@ -81,6 +84,8 @@ J = -1 * sum(sum(log(h_theta) * Y1' + log(1 - h_theta) * (1 - Y1)')) / m % *Y co
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
