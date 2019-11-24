@@ -40,7 +40,13 @@ Theta2_grad = zeros(size(Theta2));
 %         computed in ex4.m
 %
 X = [ones(m, 1), X];
-h_theta = sigmoid([ones(m, 1), sigmoid(X * Theta1')] * Theta2');
+A1 = X;
+Z2 = X * Theta1';
+A2 = [ones(m, 1), sigmoid(Z2)];
+Z3 = A2 * Theta2';
+
+			   #h_theta = sigmoid([ones(m, 1), sigmoid(X * Theta1')] * Theta2');
+h_theta = sigmoid(Z3);
 ## total_cost = 0;
 ## for i = 1:m
 ##   yi = zeros(num_labels, 1);
@@ -86,20 +92,25 @@ J = J + regular_item;
 %
 D1 = zeros(size(Theta1));
 D2 = zeros(size(Theta2));
-for i = 1:m
-  yi = zeros(1, num_labels);
-  yi(y(i)) = 1;
-  xi = X(i, :);
-  z2 = xi * Theta1';
-  a2 = [1, sigmoid(z2)];
-  z3 = a2 * Theta2';
-  a3 = sigmoid(z3);
-  delta_3 = a3 - yi;
-  delta_2 = (delta_3 * Theta2)(2:end) .* sigmoidGradient(z2);
-  D2 += delta_3' * a2;
-  D1 += delta_2' * xi;
+## for i = 1:m
+##   yi = zeros(1, num_labels);
+##   yi(y(i)) = 1;
+##   xi = X(i, :);
+##   z2 = xi * Theta1';
+##   a2 = [1, sigmoid(z2)];
+##   z3 = a2 * Theta2';
+##   a3 = sigmoid(z3);
+##   delta_3 = a3 - yi;
+##   delta_2 = (delta_3 * Theta2)(2:end) .* sigmoidGradient(z2);
+##   D2 += delta_3' * a2;
+##   D1 += delta_2' * xi;
   
-end
+## end
+# vectorization:
+delta_3 = h_theta - Y;
+delta_2 = (delta_3 * Theta2)(:, 2:end) .* sigmoidGradient(Z2);
+D2 = delta_3' * A2;
+D1 = delta_2' * A1;
 Theta1_grad = D1 / m;
 Theta2_grad = D2 / m;
 
