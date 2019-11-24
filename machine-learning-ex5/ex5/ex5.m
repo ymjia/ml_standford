@@ -93,7 +93,6 @@ plot(X, [ones(m, 1) X]*theta, '--', 'LineWidth', 2)
 hold off;
 
 fprintf('Program paused. Press enter to continue.\n');
-kbhit;
 
 
 %% =========== Part 5: Learning Curve for Linear Regression =============
@@ -163,7 +162,7 @@ kbhit;
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 0;
+lambda = 1;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
