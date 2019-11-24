@@ -40,7 +40,6 @@ xlabel('Change in water level (x)');
 ylabel('Water flowing out of the dam (y)');
 
 fprintf('Program paused. Press enter to continue.\n');
-kbhit;
 
 %% =========== Part 2: Regularized Linear Regression Cost =============
 %  You should now implement the cost function for regularized linear 
@@ -54,7 +53,7 @@ fprintf(['Cost at theta = [1 ; 1]: %f '...
          '\n(this value should be about 303.993192)\n'], J);
 
 fprintf('Program paused. Press enter to continue.\n');
-kbhit;
+
 
 %% =========== Part 3: Regularized Linear Regression Gradient =============
 %  You should now implement the gradient for regularized linear 
@@ -69,7 +68,7 @@ fprintf(['Gradient at theta = [1 ; 1]:  [%f; %f] '...
          grad(1), grad(2));
 
 fprintf('Program paused. Press enter to continue.\n');
-kbhit;
+
 
 
 %% =========== Part 4: Train Linear Regression =============
