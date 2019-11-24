@@ -84,24 +84,26 @@ J = J + regular_item;
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
-D1 = 0;
-D2 = 0;
+D1 = zeros(size(Theta1));
+D2 = zeros(size(Theta2));
 for i = 1:m
   yi = zeros(1, num_labels);
   yi(y(i)) = 1;
-  xi = X(1, :);
+  xi = X(i, :);
   z2 = xi * Theta1';
-  a2 = sigmoid(z2);
-  z3 = [1, a2] * Theta2';
+  a2 = [1, sigmoid(z2)];
+  z3 = a2 * Theta2';
   a3 = sigmoid(z3);
   delta_3 = a3 - yi;
   delta_2 = (delta_3 * Theta2)(2:end) .* sigmoidGradient(z2);
-  D1 += delta_2 * xi(2:end)';
-  D2 += delta_3(2:end) * a2(2:end)';
+  D2 += delta_3' * a2;
+  D1 += delta_2' * xi;
+  
 end
 Theta1_grad = D1 / m;
 Theta2_grad = D2 / m;
-
+#Theta1_grad(1, :) = zeros(1, size(Theta1_grad, 2));
+#Theta2_grad(1, :) = zeros(1, size(Theta2_grad, 2));
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
