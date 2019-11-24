@@ -92,6 +92,7 @@ J = J + regular_item;
 %
 D1 = zeros(size(Theta1));
 D2 = zeros(size(Theta2));
+# loop version:
 ## for i = 1:m
 ##   yi = zeros(1, num_labels);
 ##   yi(y(i)) = 1;
