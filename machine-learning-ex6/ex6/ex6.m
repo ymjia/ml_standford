@@ -19,97 +19,96 @@
 %% Initialization
 clear ; close all; clc
 
-%% =============== Part 1: Loading and Visualizing Data ================
-%  We start the exercise by first loading and visualizing the dataset. 
-%  The following code will load the dataset into your environment and plot
-%  the data.
-%
+## %% =============== Part 1: Loading and Visualizing Data ================
+## %  We start the exercise by first loading and visualizing the dataset. 
+## %  The following code will load the dataset into your environment and plot
+## %  the data.
+## %
 
-fprintf('Loading and Visualizing Data ...\n')
+## fprintf('Loading and Visualizing Data ...\n')
 
-% Load from ex6data1: 
-% You will have X, y in your environment
-load('ex6data1.mat');
+## % Load from ex6data1: 
+## % You will have X, y in your environment
+## load('ex6data1.mat');
 
-% Plot training data
-plotData(X, y);
+## % Plot training data
+## plotData(X, y);
 
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+## fprintf('Program paused. Press enter to continue.\n');
 
-%% ==================== Part 2: Training Linear SVM ====================
-%  The following code will train a linear SVM on the dataset and plot the
-%  decision boundary learned.
-%
+## %% ==================== Part 2: Training Linear SVM ====================
+## %  The following code will train a linear SVM on the dataset and plot the
+## %  decision boundary learned.
+## %
 
-% Load from ex6data1: 
-% You will have X, y in your environment
-load('ex6data1.mat');
+## % Load from ex6data1: 
+## % You will have X, y in your environment
+## load('ex6data1.mat');
 
-fprintf('\nTraining Linear SVM ...\n')
+## fprintf('\nTraining Linear SVM ...\n')
 
-% You should try to change the C value below and see how the decision
-% boundary varies (e.g., try C = 1000)
-C = 1;
-model = svmTrain(X, y, C, @linearKernel, 1e-3, 20);
-visualizeBoundaryLinear(X, y, model);
+## % You should try to change the C value below and see how the decision
+## % boundary varies (e.g., try C = 1000)
+## C = 1;
+## model = svmTrain(X, y, C, @linearKernel, 1e-3, 20);
+## visualizeBoundaryLinear(X, y, model);
 
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+## fprintf('Program paused. Press enter to continue.\n');
 
-%% =============== Part 3: Implementing Gaussian Kernel ===============
-%  You will now implement the Gaussian kernel to use
-%  with the SVM. You should complete the code in gaussianKernel.m
-%
-fprintf('\nEvaluating the Gaussian Kernel ...\n')
 
-x1 = [1 2 1]; x2 = [0 4 -1]; sigma = 2;
-sim = gaussianKernel(x1, x2, sigma);
+## %% =============== Part 3: Implementing Gaussian Kernel ===============
+## %  You will now implement the Gaussian kernel to use
+## %  with the SVM. You should complete the code in gaussianKernel.m
+## %
+## fprintf('\nEvaluating the Gaussian Kernel ...\n')
 
-fprintf(['Gaussian Kernel between x1 = [1; 2; 1], x2 = [0; 4; -1], sigma = %f :' ...
-         '\n\t%f\n(for sigma = 2, this value should be about 0.324652)\n'], sigma, sim);
+## x1 = [1 2 1]; x2 = [0 4 -1]; sigma = 2;
+## sim = gaussianKernel(x1, x2, sigma);
 
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+## fprintf(['Gaussian Kernel between x1 = [1; 2; 1], x2 = [0; 4; -1], sigma = %f :' ...
+##          '\n\t%f\n(for sigma = 2, this value should be about 0.324652)\n'], sigma, sim);
 
-%% =============== Part 4: Visualizing Dataset 2 ================
-%  The following code will load the next dataset into your environment and 
-%  plot the data. 
-%
+## fprintf('Program paused. Press enter to continue.\n');
+## kbhit;
 
-fprintf('Loading and Visualizing Data ...\n')
+## %% =============== Part 4: Visualizing Dataset 2 ================
+## %  The following code will load the next dataset into your environment and 
+## %  plot the data. 
+## %
 
-% Load from ex6data2: 
-% You will have X, y in your environment
-load('ex6data2.mat');
+## fprintf('Loading and Visualizing Data ...\n')
 
-% Plot training data
-plotData(X, y);
+## % Load from ex6data2: 
+## % You will have X, y in your environment
+## load('ex6data2.mat');
 
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+## % Plot training data
+## plotData(X, y);
 
-%% ========== Part 5: Training SVM with RBF Kernel (Dataset 2) ==========
-%  After you have implemented the kernel, we can now use it to train the 
-%  SVM classifier.
-% 
-fprintf('\nTraining SVM with RBF Kernel (this may take 1 to 2 minutes) ...\n');
+## fprintf('Program paused. Press enter to continue.\n');
+## kbhit;
 
-% Load from ex6data2: 
-% You will have X, y in your environment
-load('ex6data2.mat');
+## %% ========== Part 5: Training SVM with RBF Kernel (Dataset 2) ==========
+## %  After you have implemented the kernel, we can now use it to train the 
+## %  SVM classifier.
+## % 
+## fprintf('\nTraining SVM with RBF Kernel (this may take 1 to 2 minutes) ...\n');
 
-% SVM Parameters
-C = 1; sigma = 0.1;
+## % Load from ex6data2: 
+## % You will have X, y in your environment
+## load('ex6data2.mat');
 
-% We set the tolerance and max_passes lower here so that the code will run
-% faster. However, in practice, you will want to run the training to
-% convergence.
-model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma)); 
-visualizeBoundary(X, y, model);
+## % SVM Parameters
+## C = 1; sigma = 0.1;
 
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+## % We set the tolerance and max_passes lower here so that the code will run
+## % faster. However, in practice, you will want to run the training to
+## % convergence.
+## model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma)); 
+## visualizeBoundary(X, y, model);
+
+## fprintf('Program paused. Press enter to continue.\n');
+## kbhit;
 
 %% =============== Part 6: Visualizing Dataset 3 ================
 %  The following code will load the next dataset into your environment and 
@@ -126,7 +125,7 @@ load('ex6data3.mat');
 plotData(X, y);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+kbhit;
 
 %% ========== Part 7: Training SVM with RBF Kernel (Dataset 3) ==========
 
@@ -146,5 +145,5 @@ model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
 visualizeBoundary(X, y, model);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+kbhit;
 

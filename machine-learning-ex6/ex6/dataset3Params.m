@@ -22,8 +22,23 @@ sigma = 0.3;
 %  Note: You can compute the prediction error using 
 %        mean(double(predictions ~= yval))
 %
-
-
+cand = [0.01 0.03 0.1 0.3 1 3 10 30]
+c_num = length(cand)
+min_cost = 10000
+for i = 1:c_num
+  cur_c = cand(1, i);
+  for j = 1:c_num
+	cur_s = cand(1, j);
+	model = svmTrain(X, y, cur_c, @gaussianKernel, 1e-3, 20)
+	prd = svmPredict(model, Xval);
+	cost = mean(double(prd ~= yval));
+	if cost < min_cost
+	  min_cost = cost;
+	  C = cur_c;
+	  sigma = cur_s;
+	end
+  end
+end
 
 
 
