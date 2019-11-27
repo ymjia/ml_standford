@@ -19,20 +19,20 @@
 %% Initialization
 clear ; close all; clc
 
-## %% =============== Part 1: Loading and Visualizing Data ================
-## %  We start the exercise by first loading and visualizing the dataset. 
-## %  The following code will load the dataset into your environment and plot
-## %  the data.
-## %
+%% =============== Part 1: Loading and Visualizing Data ================
+%  We start the exercise by first loading and visualizing the dataset. 
+%  The following code will load the dataset into your environment and plot
+%  the data.
+%
 
-## fprintf('Loading and Visualizing Data ...\n')
+fprintf('Loading and Visualizing Data ...\n')
 
-## % Load from ex6data1: 
-## % You will have X, y in your environment
-## load('ex6data1.mat');
+% Load from ex6data1: 
+% You will have X, y in your environment
+load('ex6data1.mat');
 
-## % Plot training data
-## plotData(X, y);
+% Plot training data
+plotData(X, y);
 
 ## fprintf('Program paused. Press enter to continue.\n');
 
@@ -138,7 +138,7 @@ kbhit;
 load('ex6data3.mat');
 
 % Try different SVM Parameters here
-[C, sigma] = dataset3Params(X, y, Xval, yval);
+[C, sigma] = dataset3Params(X, y, Xval, yval)
 
 % Train the SVM
 model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
