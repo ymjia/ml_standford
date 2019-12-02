@@ -20,7 +20,22 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
-
+v_num = size(X, 1);
+for i = 1:v_num
+  min_dist = 0;
+  coord = X(i, :);
+  for c = 1:K
+	if (c == 1)
+	  min_dist = norm(coord - centroids(c, :));
+	  idx(i, 1) = 1;
+	else
+	  cur_dist = norm(coord - centroids(c, :));
+	  if (min_dist > cur_dist)
+		min_dist = cur_dist;
+		idx(i, 1) = c;
+	  end
+  end
+end
 
 
 
@@ -30,4 +45,5 @@ idx = zeros(size(X,1), 1);
 % =============================================================
 
 end
+
 

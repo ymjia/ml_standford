@@ -25,13 +25,15 @@ centroids = zeros(K, n);
 %
 % Note: You can use a for-loop over the centroids to compute this.
 %
+idx_vec = zeros(K, m);
+for i = 1:m
+  idx_vec(idx(i, 1), i) = 1;
+end
 
-
-
-
-
-
-
+for i = 1:K
+  idx_vec(i, :) /= sum(idx_vec(i, :));
+end
+centroids = idx_vec * X;
 
 % =============================================================
 
