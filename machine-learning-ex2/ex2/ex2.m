@@ -38,8 +38,8 @@ plotData(X, y);
 % Put some labels 
 hold on;
 % Labels and Legend
-xlabel('Exam 1 score')
-ylabel('Exam 2 score')
+xlabel('Property_{p1}')
+ylabel('Property_{p2}')
 
 % Specified in plot order
 legend('Admitted', 'Not admitted')
@@ -82,6 +82,23 @@ fprintf('Expected gradients (approx):\n 0.043\n 2.566\n 2.647\n');
 
 fprintf('\nProgram kbhitd. Press enter to continue.\n');
 kbhit;
+
+% Grid over which we will calculate J
+theta0_vals = linspace(-3, 3, 50);
+theta1_vals = linspace(-2, 2, 50);
+
+J_vals = zeros(length(theta0_vals), length(theta1_vals));
+for i = 1:length(theta0_vals)
+    for j = 1:length(theta1_vals)
+	  t = [-24; theta0_vals(i); theta1_vals(j)];
+	  J_vals(i,j) = costFunctionLinear(t, X, y);
+    end
+end
+
+% Surface plot
+figure;
+surf(theta0_vals, theta1_vals, J_vals')
+xlabel('Weight_{p1}'); ylabel('Weight{p2}');
 
 
 %% ============= Part 3: Optimizing using fminunc  =============

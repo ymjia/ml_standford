@@ -33,7 +33,7 @@ fprintf('5x5 Identity Matrix: \n');
 warmUpExercise()
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+kbhit;
 
 
 %% ======================= Part 2: Plotting =======================
@@ -47,7 +47,7 @@ m = length(y); % number of training examples
 plotData(X, y);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+kbhit;
 
 %% =================== Part 3: Cost and Gradient descent ===================
 
@@ -70,7 +70,7 @@ fprintf('\nWith theta = [-1 ; 2]\nCost computed = %f\n', J);
 fprintf('Expected cost value (approx) 54.24\n');
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+kbhit;
 
 fprintf('\nRunning Gradient Descent ...\n')
 % run gradient descent
@@ -97,7 +97,7 @@ fprintf('For population = 70,000, we predict a profit of %f\n',...
     predict2*10000);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+kbhit;
 
 %% ============= Part 4: Visualizing J(theta_0, theta_1) =============
 fprintf('Visualizing J(theta_0, theta_1) ...\n')
@@ -125,6 +125,21 @@ J_vals = J_vals';
 figure;
 surf(theta0_vals, theta1_vals, J_vals)
 xlabel('\theta_0'); ylabel('\theta_1');
+
+# plot logistic regression h_theta and J(theta) if using same cost funtion as linear regression
+J_val_log = J_vals;
+for i = 1:length(theta0_vals)
+    for j = 1:length(theta1_vals)
+	  t = [theta0_vals(i); theta1_vals(j)];
+	  J_vals_log(i,j) = computeCostLog(X, y, t);
+    end
+end
+
+% Surface plot
+figure;
+surf(theta0_vals, theta1_vals, J_val_log')
+xlabel('\theta_0_log'); ylabel('\theta_1_log');
+
 
 % Contour plot
 figure;
